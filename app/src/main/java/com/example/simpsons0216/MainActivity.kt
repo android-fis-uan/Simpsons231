@@ -15,9 +15,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun changeImage(character:String) {
-        if(character=="homer")
-            binding?.simpsonImage?.setImageResource(R.drawable.homer)
-        else
-            binding?.simpsonImage?.setImageResource(R.drawable.bart)
+        val image = resources.getIdentifier(character, "drawable", packageName)
+        binding?.simpsonImage?.setImageResource(image)
     }
 }
