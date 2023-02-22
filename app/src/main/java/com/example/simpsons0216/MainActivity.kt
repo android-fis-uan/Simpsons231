@@ -12,6 +12,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding?.root)
         binding?.btnHomer?.setOnClickListener { changeImage("homer") }
         binding?.btnBart?.setOnClickListener { changeImage("bart") }
+        binding?.rdbHomer?.setOnClickListener { changeImage("homer") }
+        binding?.rdbBart?.setOnClickListener { changeImage("bart") }
     }
 
     fun changeImage(character:String) {

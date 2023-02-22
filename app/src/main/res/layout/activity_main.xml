@@ -23,6 +23,24 @@
             android:layout_height="wrap_content"
             android:text="Bart"
             />
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+        <RadioButton
+            android:id="@+id/rdbBart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bart"
+            />
+        <RadioButton
+            android:id="@+id/rdbHomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Homer"
+            />
+        </RadioGroup>
     </LinearLayout>
     <ImageView
         android:id="@+id/simpsonImage"
