@@ -1,7 +1,9 @@
 package com.example.simpsons0216
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.simpsons0216.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -10,10 +12,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        binding?.btnHomer?.setOnClickListener { changeImage("homer") }
-        binding?.btnBart?.setOnClickListener { changeImage("bart") }
-        binding?.rdbHomer?.setOnClickListener { changeImage("homer") }
-        binding?.rdbBart?.setOnClickListener { changeImage("bart") }
+        binding?.simpsonList?.setOnItemClickListener { parent, view, position, id ->
+            println("\n-parent: $parent" +
+                    "\n-view: $view" +
+                    "\n-position: $position" +
+                    "\n-id $id")
+            simpsonsOnClick(view)
+        }
+    }
+
+    fun simpsonsOnClick(view: View) {
+        val b = view as TextView
+        changeImage(b.text.toString().lowercase())
     }
 
     fun changeImage(character:String) {
