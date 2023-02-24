@@ -8,16 +8,28 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.simpsons0216.adapters.SimpsonsAdapter
 import com.example.simpsons0216.databinding.ActivityMainBinding
 
+data class SimpsonCharacter(
+    val name:String,
+    val fullName: String,
+    val description: String,
+    val photo: Int
+) {
+
+}
 class MainActivity : AppCompatActivity() {
     var binding:ActivityMainBinding? = null
     val simpsonNames = arrayListOf<String>("Homer","Bart","Lisa")
+    val simpsonCharacters = arrayListOf<SimpsonCharacter>(
+        SimpsonCharacter("Homer", "Homer Simpson", "homer is a man ...", R.drawable.homer),
+        SimpsonCharacter("Bart", "Bartolomeo Simpson", "bart is a man ...", R.drawable.bart)
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         // 1. create the adapter object
-        //val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, simpsonNames);
-        val adapter = SimpsonsAdapter(this, R.layout.list_simpsons, simpsonNames);
+        //val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, simpsonNames)
+        val adapter = SimpsonsAdapter(this, R.layout.list_simpsons, simpsonCharacters)
         // 2. connect the list with the adapter
         binding?.simpsonList?.adapter = adapter
         binding?.simpsonList?.setOnItemClickListener { parent, view, position, id ->
