@@ -1,5 +1,6 @@
 package com.example.simpsons0216
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -21,7 +22,8 @@ class MainActivity : AppCompatActivity() {
     val simpsonNames = arrayListOf<String>("Homer","Bart","Lisa")
     val simpsonCharacters = arrayListOf<SimpsonCharacter>(
         SimpsonCharacter("Homer", "Homer Simpson", "homer is a man ...", R.drawable.homer),
-        SimpsonCharacter("Bart", "Bartolomeo Simpson", "bart is a man ...", R.drawable.bart)
+        SimpsonCharacter("Bart", "Bartolomeo Simpson", "bart is a man ...", R.drawable.bart),
+        SimpsonCharacter("Marge", "Marjorie Jacqueline Simpson", "Marjorie Jacqueline \"Marge\" Simpson is a character in the American animated sitcom The Simpsons and part of the eponymous family. Voiced by Julie Kavner, she first appeared on television in The Tracey Ullman Show short \"Good Night\" on April 19, 1987.", R.drawable.marge)
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +45,10 @@ class MainActivity : AppCompatActivity() {
 
     fun simpsonsOnClick(view: View) {
         val b = view as TextView
-        changeImage(b.text.toString().lowercase())
+        //changeImage(b.text.toString().lowercase())
+        // go to character activity
+        val intentCharacter = Intent(this, CharacterActivity::class.java)
+        startActivity(intentCharacter)
     }
 
     fun changeImage(character:String) {
