@@ -9,12 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.simpsons0216.adapters.SimpsonsAdapter
 import com.example.simpsons0216.databinding.ActivityMainBinding
 
-data class SimpsonCharacter(
+data class SimpsonCharacter (
     val name:String,
     val fullName: String,
     val description: String,
     val photo: Int
-) {
+) : java.io.Serializable {
 
 }
 class MainActivity : AppCompatActivity() {
@@ -39,15 +39,20 @@ class MainActivity : AppCompatActivity() {
                     "\n-view: $view" +
                     "\n-position: $position" +
                     "\n-id $id")
-            changeImage(simpsonNames[position].lowercase())
+            showCharacter(simpsonNames[position].lowercase(), position)
         }
     }
 
     fun simpsonsOnClick(view: View) {
         val b = view as TextView
-        //changeImage(b.text.toString().lowercase())
+        showCharacter(b.text.toString().lowercase())
+    }
+
+    fun showCharacter(character: String, position: Int = 0) {
         // go to character activity
         val intentCharacter = Intent(this, CharacterActivity::class.java)
+        intentCharacter.putExtra("NAME", character)
+        intentCharacter.putExtra("DATA", simpsonCharacters[position])
         startActivity(intentCharacter)
     }
 
