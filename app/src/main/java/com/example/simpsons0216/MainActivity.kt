@@ -1,10 +1,13 @@
 package com.example.simpsons0216
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.simpsons0216.adapters.SimpsonsAdapter
 import com.example.simpsons0216.databinding.ActivityMainBinding
@@ -25,6 +28,13 @@ class MainActivity : AppCompatActivity() {
         SimpsonCharacter("Bart", "Bartolomeo Simpson", "bart is a man ...", R.drawable.bart),
         SimpsonCharacter("Marge", "Marjorie Jacqueline Simpson", "Marjorie Jacqueline \"Marge\" Simpson is a character in the American animated sitcom The Simpsons and part of the eponymous family. Voiced by Julie Kavner, she first appeared on television in The Tracey Ullman Show short \"Good Night\" on April 19, 1987.", R.drawable.marge)
     )
+    val startActivityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+        if(result.resultCode== Activity.RESULT_OK) {
+            Toast.makeText(this, "Result: "+result.data?.getStringExtra("RESULT"), Toast.LENGTH_SHORT).show()
+        } else {
+
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -53,7 +63,8 @@ class MainActivity : AppCompatActivity() {
         val intentCharacter = Intent(this, CharacterActivity::class.java)
         intentCharacter.putExtra("NAME", character)
         intentCharacter.putExtra("DATA", simpsonCharacters[position])
-        startActivity(intentCharacter)
+        //startActivity(intentCharacter)
+        startActivityResult.launch(intentCharacter)
     }
 
     fun changeImage(character:String) {
