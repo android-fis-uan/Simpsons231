@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.simpsons0216.adapters.SimpsonsAdapter
 import com.example.simpsons0216.databinding.ActivityMainBinding
+import java.util.*
 
 data class SimpsonCharacter(
     val name: String,
@@ -25,14 +26,14 @@ class MainActivity : AppCompatActivity() {
     var binding: ActivityMainBinding? = null
     val simpsonNames = arrayListOf<String>("Homer", "Bart", "Lisa")
     val simpsonCharacters = arrayListOf<SimpsonCharacter>(
-        SimpsonCharacter("Homer", "Homer Simpson", "homer is a man ...", R.drawable.homer),
-        SimpsonCharacter("Bart", "Bartolomeo Simpson", "bart is a man ...", R.drawable.bart),
-        SimpsonCharacter(
-            "Marge",
-            "Marjorie Jacqueline Simpson",
-            "Marjorie Jacqueline \"Marge\" Simpson is a character in the American animated sitcom The Simpsons and part of the eponymous family. Voiced by Julie Kavner, she first appeared on television in The Tracey Ullman Show short \"Good Night\" on April 19, 1987.",
-            R.drawable.marge
-        )
+//        SimpsonCharacter("Homer", "Homer Simpson", "homer is a man ...", R.drawable.homer),
+//        SimpsonCharacter("Bart", "Bartolomeo Simpson", "bart is a man ...", R.drawable.bart),
+//        SimpsonCharacter(
+//            "Marge",
+//            "Marjorie Jacqueline Simpson",
+//            "Marjorie Jacqueline \"Marge\" Simpson is a character in the American animated sitcom The Simpsons and part of the eponymous family. Voiced by Julie Kavner, she first appeared on television in The Tracey Ullman Show short \"Good Night\" on April 19, 1987.",
+//            R.drawable.marge
+//        )
     )
     lateinit var adapter: SimpsonsAdapter
     val startActivityResult =
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding?.root)
         // 1. create the adapter object
         //val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, simpsonNames)
+        readCharactersFile()
         adapter = SimpsonsAdapter(this, R.layout.list_simpsons, simpsonCharacters)
         // 2. connect the list with the adapter
         binding?.simpsonList?.adapter = adapter
@@ -98,5 +100,18 @@ class MainActivity : AppCompatActivity() {
             ),
         )
         adapter.notifyDataSetChanged()
+    }
+
+
+    fun readCharactersFile() {
+        val input = Scanner(resources.openRawResource(R.raw.simpsons_characters))
+        while(input.hasNextLine()) {
+            val line = input.nextLine()
+            val data = line.split(",")
+            val id = resources.getIdentifier(data[3],"drawable", packageName)
+            val char = SimpsonCharacter(data[0],data[1],data[2],id)
+            simpsonCharacters.add(char)
+        }
+        input.close()
     }
 }
